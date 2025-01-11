@@ -7,7 +7,7 @@
 
 
 import UIKit
-    //↓
+    //↓ changed
 class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     //↑
     
@@ -17,7 +17,7 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
     @IBOutlet var  resultLabel : UILabel!
     @IBOutlet var globe : UIButton!
     
-    //↓
+    //↓ changed
     let currencies = ["JPY - ¥", "USD - $", "EUR - €", "GBP - £", "AUD - A$"]
         let exchangeRates: [String: Double] = [
             "JPY": 1.0,
@@ -36,7 +36,7 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
         moneyTextField.delegate = self
         tipTextField.delegate = self
         
-        //↓
+        //↓ changed
         // UIPickerViewの設定
                pickerView.delegate = self
                pickerView.dataSource = self
@@ -76,7 +76,7 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
         // 結果をラベルに表示
         resultLabel.text = String(format: "¥ %.2f", total)
     }
-    
+    //↓ changed
     @IBAction func globeTapped(_ sender: UIButton){
         
         // UIPickerViewを表示
@@ -127,6 +127,6 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             selectedCurrency = currencies[row]
         }
-    
+    //↑ 
 }
 
