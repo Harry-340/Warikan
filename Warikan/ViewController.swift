@@ -16,6 +16,7 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
     @IBOutlet var tipTextField : UITextField!
     @IBOutlet var  resultLabel : UILabel!
     @IBOutlet var globe : UIButton!
+    @IBOutlet var tonext : UIButton!
     
     //↓ changed
     let currencies = ["JPY - ¥", "USD - $", "EUR - €", "GBP - £", "AUD - A$"]
@@ -44,6 +45,8 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
                // 初期設定
                resultLabel.text = "¥ 0"
         //↑
+        
+        tonext.layer.cornerRadius = 10
         
     }
     

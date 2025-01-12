@@ -22,37 +22,37 @@ class keisha_ViewController: UIViewController {
     
     func setupUI(){
         // UIScrollView の設定
-               scrollView.translatesAutoresizingMaskIntoConstraints = false
-               view.addSubview(scrollView)
-               NSLayoutConstraint.activate([
-                   scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                   scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                   scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                   scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-               ])
+scrollView.translatesAutoresizingMaskIntoConstraints = false
+view.addSubview(scrollView)
+NSLayoutConstraint.activate([
+    scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+    scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+])
                
                // コンテナの UIStackView 設定
-               contentView.axis = .vertical
-               contentView.spacing = 60
-               contentView.translatesAutoresizingMaskIntoConstraints = false
-               scrollView.addSubview(contentView)
-               NSLayoutConstraint.activate([
-                   contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                   contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                   contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                   contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                   contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-               ])
+        contentView.axis = .vertical
+        contentView.spacing = 60
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+    NSLayoutConstraint.activate([
+        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+    ])
                
                // 初期行を追加
-               addNewRow()
+    addNewRow()
                
                // プラスボタンの追加
-               let addButton = UIButton(type: .system)
-               addButton.setTitle("+", for: .normal)
-               addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-               addButton.addTarget(self, action: #selector(addNewRow), for: .touchUpInside)
-               contentView.addArrangedSubview(addButton)
+    let addButton = UIButton(type: .system)
+    addButton.setTitle("+", for: .normal)
+    addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+    addButton.addTarget(self, action: #selector(addNewRow), for: .touchUpInside)
+    contentView.addArrangedSubview(addButton)
     }
     
     @objc func addNewRow() {
