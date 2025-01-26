@@ -6,88 +6,94 @@
 //
 
 import UIKit
+import RealmSwift
 
-class keisha_ViewController: UIViewController {
-
-    let scrollView = UIScrollView()
-    let contentView = UIStackView()
+class keisha_ViewController: UIViewController, UITableViewDataSource, CustomCellDelegate {
+    
+    
+    
+   
+    let realm = try! Realm()
+    var memo: [Memo] = []
+    @IBOutlet var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        setupUI()
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "itemTableViewCell", bundle: nil), forCellReuseIdentifier: "ItemCell")
+        
+        memo = readItems()
+       
         // Do any additional setup after loading the view.
     }
     
-    func setupUI(){
-        // UIScrollView の設定
-scrollView.translatesAutoresizingMaskIntoConstraints = false
-view.addSubview(scrollView)
-NSLayoutConstraint.activate([
-    scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-    scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-    scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-    scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-])
-               
-               // コンテナの UIStackView 設定
-        contentView.axis = .vertical
-        contentView.spacing = 60
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(contentView)
-    NSLayoutConstraint.activate([
-        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-    ])
-               
-               // 初期行を追加
-    addNewRow()
-               
-               // プラスボタンの追加
-    let addButton = UIButton(type: .system)
-    addButton.setTitle("+", for: .normal)
-    addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-    addButton.addTarget(self, action: #selector(addNewRow), for: .touchUpInside)
-    contentView.addArrangedSubview(addButton)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return memo.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! itemTableViewCell
+        cell.configure(memo: memo[indexPath.row])
+        return cell
     }
     
-    @objc func addNewRow() {
-           // 新しい行の UIStackView
-        let rowStackView = UIStackView()
-        rowStackView.axis = .horizontal
-        rowStackView.spacing = 8
-        rowStackView.alignment = .center
-        rowStackView.distribution = .fill
-        //rowStackView.backgroundColor = .
-           
-           // 名前を入力する UITextField
-           let nameField = UITextField()
-           nameField.placeholder = "名前"
-           nameField.borderStyle = .roundedRect
-           nameField.widthAnchor.constraint(equalToConstant: 120).isActive = true
-           rowStackView.addArrangedSubview(nameField)
-           
-           // 数値ボタン（0, 1, 2, 3, opt.）
-           let buttons = ["0", "1", "2", "3", "opt."]
-           for title in buttons {
-               let button = UIButton(type: .system)
-               button.setTitle(title, for: .normal)
-               button.backgroundColor = UIColor.systemBlue
-               button.setTitleColor(.white, for: .normal)
-               button.layer.cornerRadius = 20
-               button.widthAnchor.constraint(equalToConstant: 40).isActive = true
-               button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-               rowStackView.addArrangedSubview(button)
-           }
-           
-           // 行をコンテンツビューに追加
-           let index = max(0, contentView.arrangedSubviews.count - 1) // プラスボタンの手前に挿入
-           contentView.insertArrangedSubview(rowStackView, at: index)
-       }
+    func readItems() -> [Memo]{
+        return Array (realm.objects(Memo.self))
+    }
+    
+    @IBAction func plus(){
+        let newMemo = Memo()
+        try!realm.write{
+            realm.add(newMemo)
+        }
+        memo = readItems()
+        tableView.reloadData()
+    }
+    func didUpdateMemo(_ cell: itemTableViewCell, name: String?, flag: Int?, optAmount: Int?) {
+        print("hello")
+        guard let targetMemo = cell.memo else { return }
+       try! realm.write {
+            targetMemo.name         = name ?? ""
+            targetMemo.flag         = flag ?? 0
+            targetMemo.optionAmount = optAmount ?? 0
+        }
+        memo = readItems()
+        tableView.reloadData()
+    }
+    
+    func didTapOptButton(_ cell: itemTableViewCell) {
+        let alert = UIAlertController(title: "Input", message: "Enter some text", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.keyboardType = .numberPad
+        }
+        
+        let okAction = UIAlertAction(title: "OK", style: .default){
+            [weak self, weak alert] _ in guard
+            let self      = self,
+            let textField = alert?.textFields?.first,
+            let text      = textField.text,
+            let amount    = Int(text)
+            else { return }
+            
+            cell.optAmount = amount
+            
+            if let targetMemo = cell.memo {
+                try! self.realm.write {
+                    targetMemo.optionAmount = amount
+                }
+                self.tableView.reloadData()
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+        
+    }
+    
 
     /*
     // MARK: - Navigation
