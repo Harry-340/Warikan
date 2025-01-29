@@ -34,6 +34,7 @@ class keisha_ViewController: UIViewController, UITableViewDataSource, CustomCell
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! itemTableViewCell
+        cell.delegate = self
         cell.configure(memo: memo[indexPath.row])
         return cell
     }
@@ -51,7 +52,7 @@ class keisha_ViewController: UIViewController, UITableViewDataSource, CustomCell
         tableView.reloadData()
     }
     func didUpdateMemo(_ cell: itemTableViewCell, name: String?, flag: Int?, optAmount: Int?) {
-        print("hello")
+        //print("hello")
         guard let targetMemo = cell.memo else { return }
        try! realm.write {
             targetMemo.name         = name ?? ""
@@ -63,6 +64,7 @@ class keisha_ViewController: UIViewController, UITableViewDataSource, CustomCell
     }
     
     func didTapOptButton(_ cell: itemTableViewCell) {
+        print("tapped")
         let alert = UIAlertController(title: "Input", message: "Enter some text", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.keyboardType = .numberPad
