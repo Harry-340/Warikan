@@ -89,7 +89,7 @@
             <connections>
                 <outlet property="nameTextField" destination="pZj-mM-Gvl" id="7rY-Qz-F6M"/>
                 <outlet property="one" destination="7ZO-E1-8RJ" id="O9c-OP-0SB"/>
-                <outlet property="opt" destination="ihA-LQ-1ff" id="J7L-83-yVa"/>
+                <outlet property="opt" destination="ihA-LQ-1ff" id="r2K-ez-9sY"/>
                 <outlet property="three" destination="qHm-kI-goR" id="yfr-e2-igq"/>
                 <outlet property="two" destination="QL5-BR-xmp" id="m6S-l0-1NU"/>
                 <outlet property="zero" destination="Hda-NT-3KM" id="vxX-22-M0L"/>

@@ -90,6 +90,7 @@ class itemTableViewCell: UITableViewCell, UITextFieldDelegate {
         flag = 4
         setCell(flag: flag)
         notifyUpdate()
+        delegate?.didTapOptButton(self)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField){
