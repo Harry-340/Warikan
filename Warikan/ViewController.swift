@@ -7,7 +7,7 @@
 
 
 import UIKit
-    //↓ changed
+//↓ changed
 class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     //↑
     
@@ -20,16 +20,16 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
     
     //↓ changed
     let currencies = ["JPY - ¥", "USD - $", "EUR - €", "GBP - £", "AUD - A$"]
-        let exchangeRates: [String: Double] = [
-            "JPY": 1.0,
-            "USD": 0.0063,
-            "EUR": 0.006,
-            "GBP": 0.005,
-            "AUD": 0.0102
-        ]
+    let exchangeRates: [String: Double] = [
+        "JPY": 1.0,
+        "USD": 0.0063,
+        "EUR": 0.006,
+        "GBP": 0.005,
+        "AUD": 0.0102
+    ]
     
     var selectedCurrency = "JPY - ¥" // 初期値
-        var pickerView = UIPickerView()
+    var pickerView = UIPickerView()
     //↑
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +39,11 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
         
         //↓ changed
         // UIPickerViewの設定
-               pickerView.delegate = self
-               pickerView.dataSource = self
-
-               // 初期設定
-               resultLabel.text = "¥ 0"
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        // 初期設定
+        resultLabel.text = "¥ 0"
         //↑
         
         tonext.layer.cornerRadius = 10
@@ -51,9 +51,9 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-           calculateResult()
-           return true
-       }
+        calculateResult()
+        return true
+    }
     
     func calculateResult() {
         // 金額とTip率を取得
@@ -64,15 +64,15 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
             resultLabel.text = "入力が正しくありません"
             return
         }
-
+        
         // Tip計算
         let tip = amount * (tipPercentage / 100)
         //print("amount")
         //print(amount)
         //print("tippercentage")
         //print(tipPercentage)
-       // print("tip")
-       // print(tip)
+        // print("tip")
+        // print(tip)
         let total = amount + tip
         //print("total")
         //print(total)
@@ -83,53 +83,63 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
     @IBAction func globeTapped(_ sender: UIButton){
         
         // UIPickerViewを表示
-               let alert = UIAlertController(title: "Select Currency", message: "\n\n\n\n\n\n", preferredStyle: .alert)
-               alert.isModalInPresentation = true
-
-               pickerView.frame = CGRect(x: 0, y: 50, width: 250, height: 150)
-               alert.view.addSubview(pickerView)
-
-               // キャンセルボタン
-               alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-               // 確定ボタン
-               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                   self.updateCurrency()
-               }))
-
-               self.present(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Select Currency", message: "\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.isModalInPresentation = true
+        
+        pickerView.frame = CGRect(x: 0, y: 50, width: 250, height: 150)
+        alert.view.addSubview(pickerView)
+        
+        // キャンセルボタン
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        // 確定ボタン
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.updateCurrency()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     
     func updateCurrency() {
-            // 通貨の更新
-            if let selected = selectedCurrency.split(separator: " ").first {
-                let symbol = selectedCurrency.split(separator: "-").last?.trimmingCharacters(in: .whitespaces) ?? "¥"
-                let rate = exchangeRates[String(selected)] ?? 1.0
-                let amount = Double(moneyTextField.text ?? "0") ?? 0
-                print("amount")
-                print(amount * rate)
-                let convertedAmount = amount * rate
-               
-
-                resultLabel.text = "\(symbol) \(convertedAmount)"
-            }
+        // 通貨の更新
+        if let selected = selectedCurrency.split(separator: " ").first {
+            let symbol = selectedCurrency.split(separator: "-").last?.trimmingCharacters(in: .whitespaces) ?? "¥"
+            let rate = exchangeRates[String(selected)] ?? 1.0
+            let amount = Double(moneyTextField.text ?? "0") ?? 0
+            print("amount")
+            print(amount * rate)
+            let convertedAmount = amount * rate
+            
+            
+            resultLabel.text = "\(symbol) \(convertedAmount)"
         }
+    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-            return 1
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currencies.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return currencies[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCurrency = currencies[row]
+    }
+    //↑
+    @IBAction func next(){
+        
+        performSegue(withIdentifier: "toKeisha", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toKeisha" {
+            let nextVC = segue.destination as! keishaViewController
+            nextVC.amount = Int(moneyTextField.text ?? "0") ?? 0
         }
-
-        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return currencies.count
-        }
-
-        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return currencies[row]
-        }
-
-        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            selectedCurrency = currencies[row]
-        }
-    //↑ 
+    }
 }
 
