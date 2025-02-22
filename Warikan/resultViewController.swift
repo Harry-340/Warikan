@@ -44,7 +44,10 @@ class resultViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func back(){
-        realm.deleteAll()
+        try! realm.write {
+              realm.deleteAll()
+          }
+       // realm.deleteAll()
         self.view.window?.rootViewController?.dismiss(animated: true)
     }
 
