@@ -9,7 +9,7 @@ import UIKit
 
 protocol CustomCellDelegate: AnyObject {
     func didUpdateMemo(_ cell: itemTableViewCell, name: String?, flag: Int?, optAmount: Int?)
-    func didTapOptButton(_ cell: itemTableViewCell)
+    func didTapOptButton(_ id:Int)
 }
 
 class itemTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -90,7 +90,7 @@ class itemTableViewCell: UITableViewCell, UITextFieldDelegate {
         flag = 4
         setCell(flag: flag)
         notifyUpdate()
-        delegate?.didTapOptButton(self)
+        delegate?.didTapOptButton(memo.id)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField){

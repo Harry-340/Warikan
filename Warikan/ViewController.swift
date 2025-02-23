@@ -52,6 +52,14 @@ class ViewController: UIViewController,  UITextFieldDelegate, UIPickerViewDelega
         
     }
     
+    override func didReceiveMemoryWarning() {
+           super.didReceiveMemoryWarning()
+       }
+       
+       override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+           self.view.endEditing(true)
+       }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         calculateResult()
         return true

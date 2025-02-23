@@ -48,11 +48,12 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
     }
     
     func readItems() -> [Memo]{
-        return Array (realm.objects(Memo.self))
+        return Array (realm.objects(Memo.self).sorted(byKeyPath:"id", ascending: true))
     }
     
     @IBAction func plus(){
         let newMemo = Memo()
+        newMemo.id = memo.count
         try!realm.write{
             realm.add(newMemo)
         }
@@ -71,7 +72,7 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
         tableView.reloadData()
     }
     
-    func didTapOptButton(_ cell: itemTableViewCell) {
+    func didTapOptButton(_ id: Int) {
         print("tapped")
         let alert = UIAlertController(title: "", message: "希望金額を入力", preferredStyle: .alert)
         alert.addTextField { textField in
@@ -86,14 +87,13 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
                 let amount    = Int(text)
             else { return }
             
-            cell.optAmount = amount
-            
-            if let targetMemo = cell.memo {
+         
                 try! self.realm.write {
-                    targetMemo.optionAmount = amount
-                }
-                self.tableView.reloadData()
+                    self.memo[id].optionAmount = amount
             }
+            self.memo = readItems()
+                self.tableView.reloadData()
+            
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

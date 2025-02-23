@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F3D6B5D32D45D03300460BC7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3D6B5D22D45D03300460BC7 /* RealmSwift */; };
+		F379EC232D6AF6B800F5A6DF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F379EC222D6AF6B800F5A6DF /* RealmSwift */; };
+		F379EC242D6AF6B800F5A6DF /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = F379EC222D6AF6B800F5A6DF /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +27,20 @@
 			remoteInfo = Warikan;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F379EC252D6AF6B800F5A6DF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F379EC242D6AF6B800F5A6DF /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F330AA3A2D05410800D3D2A3 /* Warikan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warikan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3D6B5D32D45D03300460BC7 /* RealmSwift in Frameworks */,
+				F379EC232D6AF6B800F5A6DF /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +111,7 @@
 				F330AA3C2D05410800D3D2A3 /* Warikan */,
 				F330AA532D05410900D3D2A3 /* WarikanTests */,
 				F330AA5D2D05410900D3D2A3 /* WarikanUITests */,
+				F379EC212D6AF6B800F5A6DF /* Frameworks */,
 				F330AA3B2D05410800D3D2A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,6 +126,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F379EC212D6AF6B800F5A6DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -120,6 +143,7 @@
 				F330AA362D05410800D3D2A3 /* Sources */,
 				F330AA372D05410800D3D2A3 /* Frameworks */,
 				F330AA382D05410800D3D2A3 /* Resources */,
+				F379EC252D6AF6B800F5A6DF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,7 +154,7 @@
 			);
 			name = Warikan;
 			packageProductDependencies = (
-				F3D6B5D22D45D03300460BC7 /* RealmSwift */,
+				F379EC222D6AF6B800F5A6DF /* RealmSwift */,
 			);
 			productName = Warikan;
 			productReference = F330AA3A2D05410800D3D2A3 /* Warikan.app */;
@@ -215,7 +239,7 @@
 			mainGroup = F330AA312D05410800D3D2A3;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F3D6B5D12D45D03300460BC7 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				F379EC1C2D6AF67E00F5A6DF /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F330AA3B2D05410800D3D2A3 /* Products */;
@@ -298,6 +322,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L52D2JXDMC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Warikan/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -305,13 +330,18 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.Mishima.Missy.Warikan;
+				PRODUCT_BUNDLE_IDENTIFIER = app.Mishima.Missy.Warikan1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -325,6 +355,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L52D2JXDMC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Warikan/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -332,13 +363,18 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.Mishima.Missy.Warikan;
+				PRODUCT_BUNDLE_IDENTIFIER = app.Mishima.Missy.Warikan1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -574,7 +610,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F3D6B5D12D45D03300460BC7 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		F379EC1C2D6AF67E00F5A6DF /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
@@ -585,9 +621,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F3D6B5D22D45D03300460BC7 /* RealmSwift */ = {
+		F379EC222D6AF6B800F5A6DF /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F3D6B5D12D45D03300460BC7 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = F379EC1C2D6AF67E00F5A6DF /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -13,4 +13,5 @@ class Memo: Object{
     @Persisted var flag: Int = 0
     @Persisted var optionAmount: Int = 0
     @Persisted var resultAmount: Int = 0
+    @Persisted var id: Int = 0
 }

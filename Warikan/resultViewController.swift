@@ -55,9 +55,10 @@ class resultViewController: UIViewController, UITableViewDataSource {
 
     
     func takeScreenShot() -> UIImage {
+       // let size = view.bounds.size
         let width: CGFloat = tableView.bounds.size.width
         let height: CGFloat = tableView.bounds.size.height
-        let size = CGSize(width: width, height: height - 50)
+        let size = CGSize(width: width, height: height)
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         view.drawHierarchy(in: tableView.bounds, afterScreenUpdates: true)
