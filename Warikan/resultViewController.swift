@@ -13,6 +13,7 @@ class resultViewController: UIViewController, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var finish : UIButton!
     var items: [Memo] = []
+    var screenShotImage : UIImage?
 
     let realm = try! Realm()
     let scrollView = UIScrollView()
@@ -50,6 +51,35 @@ class resultViewController: UIViewController, UITableViewDataSource {
        // realm.deleteAll()
         self.view.window?.rootViewController?.dismiss(animated: true)
     }
+    
+
+    
+    func takeScreenShot() -> UIImage {
+        let width: CGFloat = tableView.bounds.size.width
+        let height: CGFloat = tableView.bounds.size.height
+        let size = CGSize(width: width, height: height - 50)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        view.drawHierarchy(in: tableView.bounds, afterScreenUpdates: true)
+        let screenShotImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return screenShotImage
+    }
+    
+    @IBAction func share(_ sender: Any) {
+        let image = takeScreenShot()
+        let text = "割り勘金額"
+        let items = [text, image] as [Any]
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activityVC, animated: true)
+    }
+    
+   
+    
+    
+    
+    
 
     /*
     // MARK: - Navigation

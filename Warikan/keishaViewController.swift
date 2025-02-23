@@ -17,6 +17,7 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
     var memo: [Memo] = []
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tonext : UIButton!
+  
     var amount: Int = 0
     
     let ditstribution :[Int] = [10,13,16,20]
@@ -32,6 +33,7 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
         memo = readItems()
         
         tonext.layer.cornerRadius = 10
+       
         // Do any additional setup after loading the view.
     }
     
@@ -71,7 +73,7 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
     
     func didTapOptButton(_ cell: itemTableViewCell) {
         print("tapped")
-        let alert = UIAlertController(title: "Input", message: "Enter some text", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "希望金額を入力", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.keyboardType = .numberPad
         }
@@ -107,12 +109,14 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
         let optMemos = getOptMemo(items: memo)
         for i in 0..<optMemos.count{
             noOptAmount = noOptAmount - optMemos[i].optionAmount
+            //オプション抜きの金額　＝　合計　ー　optMemoに入っているものの合計
         }
         var unitCount: Int = 0
         for i in 0..<ditstribution.count{
             unitCount = unitCount + ditstribution[i] * getSelecterNum(items: memo, flag: i)
         }
-        let unit = noOptAmount / unitCount
+        
+            let unit = noOptAmount / unitCount
         
         
         for i in 0..<memo.count{
@@ -152,6 +156,8 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
         }
         return count
     }
+    
+   
     /*
      // MARK: - Navigation
      
