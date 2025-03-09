@@ -17,6 +17,9 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
     var memo: [Memo] = []
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tonext : UIButton!
+    @IBOutlet var label : UILabel!
+    
+    var tanni : Int = 0
   
     var amount: Int = 0
     
@@ -60,6 +63,26 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
         memo = readItems()
         tableView.reloadData()
     }
+    
+    
+    
+    @IBAction func nashi(){
+        tanni = 0
+        updateLabel()
+    }
+    @IBAction func ten(){
+        tanni = 10
+        updateLabel()
+    }
+    @IBAction func hundred(){
+        if amount >= 10000 {
+            tanni = 100
+            updateLabel()
+        }else{
+            
+        }
+    }
+    
     func didUpdateMemo(_ cell: itemTableViewCell, name: String?, flag: Int?, optAmount: Int?) {
         //print("hello")
         guard let targetMemo = cell.memo else { return }
@@ -116,10 +139,17 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
             unitCount = unitCount + ditstribution[i] * getSelecterNum(items: memo, flag: i)
         }
         
-            let unit = noOptAmount / unitCount
+       var unit = 0
+      
+         if tanni == 10 {
+            unit = (noOptAmount / (10 * unitCount) + 1) * 10
+        } else if tanni == 100 {
+            unit = (noOptAmount / (100 * unitCount) + 1) * 100
+        } else {
+            unit = noOptAmount / unitCount + 1
+        }
         
-        
-        for i in 0..<memo.count{
+        for i in 1..<memo.count{
             if memo[i].flag == 4{
                 try! realm.write {
                     memo[i].resultAmount = memo[i].optionAmount
@@ -131,6 +161,10 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
                     memo[i].resultAmount = unit * ditstribution[flag]
                 }
             }
+            amount = amount - memo[i].resultAmount
+        }
+        try! realm.write {
+            memo[0].resultAmount = amount
         }
         
         performSegue(withIdentifier: "toResult", sender: nil)
@@ -145,6 +179,9 @@ class keishaViewController: UIViewController, UITableViewDataSource, CustomCellD
             }
         }
         return removedItems
+    }
+    func updateLabel() {
+        label.text = String(tanni)
     }
     
     func getSelecterNum(items: [Memo], flag: Int) -> Int{
